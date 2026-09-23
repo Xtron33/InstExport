@@ -1,0 +1,22 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  padding: 12px !important;
+  position: relative;
+  border: 5px solid var(--light-bg) !important;
+  width: 100%;
+  align-items: center;
+}
+
+.active {
+  padding: 17px 12px;
+  background: var(--light-bg);
+  border: none;
+}
+
+.title {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}

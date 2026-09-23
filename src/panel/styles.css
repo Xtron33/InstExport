@@ -1,0 +1,32 @@
+:root {
+  --bg: #32353e;
+  --light-bg: #495368;
+  --primary: #bec6a0;
+  --dark-primary: #8eb68f;
+  --error: #812f2f;
+  --error-text: #ff9696;
+  --dark-warning: #aa7e5e;
+  --warning: #e8ddb4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--primary);
+  background: var(--bg);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+#root {
+  height: 100vh;
+  overflow: auto;
+}
+
+p {
+  margin: 0;
+  line-height: 1.5;
+}

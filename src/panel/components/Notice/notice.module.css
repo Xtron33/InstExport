@@ -1,0 +1,14 @@
+.container {
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.error {
+  background: var(--error);
+  color: var(--error-text);
+}
+
+.warning {
+  background: var(--dark-warning);
+  color: var(--warning);
+}

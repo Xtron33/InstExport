@@ -1,0 +1,13 @@
+.message {
+  margin-top: 12px;
+  color: var(--error-text);
+  overflow-wrap: break-word;
+}
+
+.closeButton {
+  margin-top: 20px;
+  margin-left: auto;
+  padding: 8px 12px;
+  background: var(--dark-warning);
+  color: var(--warning);
+}

@@ -1,0 +1,41 @@
+.status {
+  margin-top: 14px;
+  font-size: 14px;
+  overflow-wrap: break-word;
+}
+
+.report {
+  max-height: 150px;
+  overflow: auto;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--primary);
+  overflow-wrap: break-word;
+}
+
+.item {
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--dark-primary);
+}
+
+.item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.warning {
+  padding: 9px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background: var(--dark-warning);
+  color: var(--warning);
+}
+
+.closeButton {
+  margin-top: 20px;
+  margin-left: auto;
+  padding: 8px 12px;
+  background: var(--light-bg);
+}

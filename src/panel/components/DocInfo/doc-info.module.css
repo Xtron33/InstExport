@@ -1,0 +1,15 @@
+.card {
+  padding: 12px;
+  background: var(--light-bg);
+  border-radius: 16px;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.sizes {
+  font-size: 14px;
+  color: var(--dark-primary);
+}

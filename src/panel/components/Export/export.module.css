@@ -1,0 +1,15 @@
+.path {
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background: var(--light-bg);
+  border-radius: 8px;
+}
+
+.button {
+  padding: 6px;
+  margin: 0;
+  width: 100%;
+  background-color: var(--dark-primary);
+  color: var(--light-bg);
+}

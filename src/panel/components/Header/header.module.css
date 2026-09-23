@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--dark-primary);
+}
+
+.languages {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.flag {
+  padding: 4px;
+  background: transparent;
+  border-color: transparent;
+}
+
+.flagIcon {
+  display: block;
+  width: 24px;
+  height: 16px;
+}
+
+.flag[aria-pressed='true'] {
+  border-color: var(--dark-primary);
+  background: var(--light-bg);
+}

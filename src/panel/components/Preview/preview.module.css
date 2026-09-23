@@ -1,0 +1,93 @@
+.container {
+  background: var(--light-bg);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.firstLine {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.eyebrow {
+  font-weight: 800;
+}
+
+.count {
+  font-weight: 600;
+}
+
+.previewBlock {
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.previewBlock + .previewBlock {
+  border-top: 1px solid var(--dark-primary);
+}
+
+.diagram {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  margin: 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  display: block;
+  object-fit: fill;
+}
+
+.seam {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgb(0 0 0 / 65%);
+}
+
+.state {
+  position: relative;
+  z-index: 1;
+  padding: 4px 6px;
+  color: #4a4652;
+  background: rgb(255 255 255 / 80%);
+  font-size: 10px;
+  text-align: center;
+}
+
+.caption {
+  text-align: center;
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.paddings {
+  text-align: center;
+  color: var(--dark-primary);
+  font-size: 11px;
+}
+
+.outputs {
+  margin-top: 20px;
+}
+
+.output {
+  border-top: 1px solid var(--dark-primary);
+  padding: 8px 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  font-weight: 800;
+}
