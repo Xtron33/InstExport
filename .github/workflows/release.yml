@@ -1,15 +1,18 @@
 name: Release candidate
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version, e.g. 0.1.0'
+        required: true
+        type: string
 
 permissions:
   contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ inputs.version }}
   cancel-in-progress: false
 
 jobs:
@@ -17,11 +20,12 @@ jobs:
     name: Check and package
     runs-on: ubuntu-24.04
     timeout-minutes: 20
+
     outputs:
       version: ${{ steps.version.outputs.version }}
 
     steps:
-      - name: Check out release tag
+      - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -32,14 +36,18 @@ jobs:
           node-version-file: .nvmrc
           package-manager-cache: false
 
-      - name: Check tag and manifest versions
+      - name: Check versions
         id: version
         shell: bash
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
         run: |
           version=$(node -p "require('./package.json').version")
           manifest_version=$(node -p "require('./manifest.json').version")
+
           test "$version" = "$manifest_version"
-          test "$GITHUB_REF_NAME" = "v$version"
+          test "$version" = "$RELEASE_VERSION"
+
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Install Yarn Classic
@@ -62,14 +70,17 @@ jobs:
         shell: bash
         run: |
           asset="release/InstExport-${{ steps.version.outputs.version }}.ccx"
+
           unzip -t "$asset"
           unzip -Z1 "$asset" > "$RUNNER_TEMP/package-files.txt"
+
           for file in manifest.json index.html index.js styles.css; do
             grep -Fxq "$file" "$RUNNER_TEMP/package-files.txt"
           done
+
           sha256sum "$asset" > "$asset.sha256"
 
-      - name: Upload release files for review
+      - name: Upload release files
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: InstExport-${{ steps.version.outputs.version }}
@@ -84,6 +95,7 @@ jobs:
     needs: package
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+
     permissions:
       contents: write
 
@@ -100,21 +112,29 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           VERSION: ${{ needs.package.outputs.version }}
+          TARGET_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
+
           tag="v$VERSION"
           asset="release/InstExport-$VERSION.ccx"
           checksum="$asset.sha256"
+
           sha256sum --check "$checksum"
 
           if gh release view "$tag" >/dev/null 2>&1; then
             is_draft=$(gh release view "$tag" --json isDraft --jq '.isDraft')
+
             if [ "$is_draft" != true ]; then
               echo "Release $tag is already published; refusing to replace its assets." >&2
               exit 1
             fi
+
             gh release upload "$tag" "$asset" "$checksum" --clobber
           else
             gh release create "$tag" "$asset" "$checksum" \
-              --draft --verify-tag --generate-notes --title "InstExport $VERSION"
+              --draft \
+              --target "$TARGET_SHA" \
+              --generate-notes \
+              --title "InstExport $VERSION"
           fi
